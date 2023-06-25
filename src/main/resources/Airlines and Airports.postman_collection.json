@@ -1,0 +1,457 @@
+{
+	"info": {
+		"_postman_id": "23626c6e-0240-4943-b03c-46b3d0ee65e5",
+		"name": "Airlines and Airports",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "All Airports",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/airports",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"airports"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Airport",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/airports/AGU",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"airports",
+						"AGU"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert Airport",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "code",
+							"value": "ATL",
+							"type": "default"
+						},
+						{
+							"key": "name",
+							"value": "Atlanta",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/airports/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"airports",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save airport Error",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "code",
+							"value": "BJZA",
+							"type": "default"
+						},
+						{
+							"key": "name",
+							"value": "Badajoz",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/airports/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"airports",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Airport Bad Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/airports/AUH",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"airports",
+						"AUH"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Airport Bad Request Wrong Code",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/airports/AU",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"airports",
+						"AU"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Airlines",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/airlines",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"airlines"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert Airline",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "code",
+							"value": "SU",
+							"type": "default"
+						},
+						{
+							"key": "name",
+							"value": "Aeroflot",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/airlines/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"airlines",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save airline Error",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "code",
+							"value": "BDX",
+							"type": "default"
+						},
+						{
+							"key": "name",
+							"value": "Aberdair Aviation",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/airlines/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"airlines",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Airline",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/airlines/SU",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"airlines",
+						"SU"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Airline Bad request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/airlines/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"airlines",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Airline Wrong code",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/airlines/SUH",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"airlines",
+						"SUH"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save flight",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "from_airport_code",
+							"value": "ABD",
+							"type": "default"
+						},
+						{
+							"key": "to_airport_code",
+							"value": "ABZ",
+							"type": "default"
+						},
+						{
+							"key": "airline",
+							"value": "SF",
+							"type": "default"
+						},
+						{
+							"key": "price",
+							"value": "123",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/flights/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"flights",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ALl flight",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://localhost:8081/flights/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"flights",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update price",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "price",
+							"value": "1120",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/flights/ABDABZSF",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"flights",
+						"ABDABZSF"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find routes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/routes/AGU/AEH",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"routes",
+						"AGU",
+						"AEH"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find routes with max srops",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/routes/AGU/AEH?max_stops=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"routes",
+						"AGU",
+						"AEH"
+					],
+					"query": [
+						{
+							"key": "max_stops",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
