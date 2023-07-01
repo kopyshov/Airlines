@@ -1,11 +1,10 @@
 package dao;
 
+import dto.FlightDto;
 import model.Airline;
 import model.Airport;
 import model.Flight;
-import org.sqlite.SQLiteException;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,22 +20,21 @@ public class FlightDao {
     }
 
 
-    public void save(Long fromAirportId, Long toAirportId, Long airline, BigDecimal price) throws SQLException{
+    public void save(FlightDto flight) throws SQLException{
         try(PreparedStatement statement = connection.prepareStatement(FlightSQL.SAVE.QUERY)) {
-            statement.setLong(1, fromAirportId);
-            statement.setLong(2, toAirportId);
-            statement.setLong(3, airline);
-            statement.setBigDecimal(4, price);
+            statement.setLong(1, flight.fromAirportId());
+            statement.setLong(2, flight.toAirportId());
+            statement.setLong(3, flight.airline());
+            statement.setBigDecimal(4, flight.price());
             statement.executeUpdate();
         }
     }
-
-    public void update(Long fromAirportId, Long toAirportId, Long airline, BigDecimal price) {
+    public void update(FlightDto flight) {
         try(PreparedStatement statement = connection.prepareStatement(FlightSQL.UPDATE.QUERY)) {
-            statement.setLong(2, fromAirportId);
-            statement.setLong(3, toAirportId);
-            statement.setLong(4, airline);
-            statement.setBigDecimal(1, price);
+            statement.setLong(2, flight.fromAirportId());
+            statement.setLong(3, flight.toAirportId());
+            statement.setLong(4, flight.airline());
+            statement.setBigDecimal(1, flight.price());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -44,11 +42,11 @@ public class FlightDao {
     }
 
 
-    public void delete(Long fromAirportId, Long toAirportId, Long airline) {
+    public void delete(FlightDto flight) {
         try(PreparedStatement statement = connection.prepareStatement(FlightSQL.DELETE.QUERY)) {
-            statement.setLong(1, fromAirportId);
-            statement.setLong(2, toAirportId);
-            statement.setLong(3, airline);
+            statement.setLong(1, flight.fromAirportId());
+            statement.setLong(2, flight.toAirportId());
+            statement.setLong(3, flight.airline());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

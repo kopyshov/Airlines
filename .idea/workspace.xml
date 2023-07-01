@@ -9,9 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23fadec2-79db-4b6e-84d3-2f2f13fa9665" name="Changes" comment="Add postman">
+    <list default="true" id="23fadec2-79db-4b6e-84d3-2f2f13fa9665" name="Changes" comment="Tiny fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/RouteFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/RouteFinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/AirportDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/AirportDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/FlightDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/FlightDao.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,7 +182,8 @@
       <workItem from="1687087776103" duration="13439000" />
       <workItem from="1687602090662" duration="28597000" />
       <workItem from="1687711241490" duration="1450000" />
-      <workItem from="1688222380909" duration="5611000" />
+      <workItem from="1688222380909" duration="6298000" />
+      <workItem from="1688234238982" duration="422000" />
     </task>
     <task id="LOCAL-00001" summary="Add postman">
       <created>1687711817473</created>
@@ -197,7 +199,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688227954344</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Tiny fixes">
+      <created>1688233205355</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1688233205355</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,6 +225,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add postman" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add postman" />
+    <MESSAGE value="Tiny fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tiny fixes" />
   </component>
 </project>

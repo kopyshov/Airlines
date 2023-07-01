@@ -6,6 +6,7 @@ import dao.AirportDao;
 import dao.FlightDao;
 import database.DataSourceFactory;
 import dto.ErrorResponse;
+import dto.FlightDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -65,7 +66,7 @@ public class FlightsServlet extends HttpServlet {
                 Long fromAirportId = airportDao.getByCode(fromAirportCode).orElseThrow().getId();
                 Long toAirportId = airportDao.getByCode(toAirportCode).orElseThrow().getId();
                 Long airlineId = airlineDao.getByCode(airline).orElseThrow().getId();
-                flightDao.update(fromAirportId, toAirportId, airlineId, price);
+                flightDao.update(new FlightDto(fromAirportId, toAirportId, airlineId, price));
                 Flight flight = flightDao.getById(fromAirportId, toAirportId, airlineId);
                 Gson gson = new Gson();
                 String answer = gson.toJson(flight);
@@ -112,7 +113,7 @@ public class FlightsServlet extends HttpServlet {
                 Long fromAirportId = airportDao.getByCode(fromAirportCode).orElseThrow().getId();
                 Long toAirportId = airportDao.getByCode(toAirportCode).orElseThrow().getId();
                 Long airlineId = airlineDao.getByCode(airline).orElseThrow().getId();
-                flightDao.save(fromAirportId, toAirportId, airlineId, price);
+                flightDao.save(new FlightDto(fromAirportId, toAirportId, airlineId, price));
                 Flight flight = flightDao.getById(fromAirportId, toAirportId, airlineId);
                 Gson gson = new Gson();
                 String answer = gson.toJson(flight);
