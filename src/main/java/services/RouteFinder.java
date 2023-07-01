@@ -24,6 +24,8 @@ public class RouteFinder {
     int maxNumStops;
     List<LinkedList<Flight>> routes = new ArrayList<>();
     List<Route> readyRoutes = new ArrayList<>();
+    private int MAX_STOP_LIMIT = 5;
+    private int MAX_STOP_DEFAULT = 2;
     public RouteFinder() throws URISyntaxException, SQLException {
         DataSource dataSource = DataSourceFactory.getInstance().getDataSource();
         flightDao = new FlightDao(dataSource.getConnection());
@@ -34,11 +36,11 @@ public class RouteFinder {
         startAirportId = airportDao.getByCode(startAirportCode).orElseThrow().getId();
         finishAirportId = airportDao.getByCode(finishAirportCode).orElseThrow().getId();
         if(maxStops == null) {
-            maxNumStops = 2;
+            maxNumStops = MAX_STOP_DEFAULT;
         } else {
             maxNumStops = Integer.parseInt(maxStops);
-            if(maxNumStops > 5) {
-                maxNumStops = 5;
+            if(maxNumStops > MAX_STOP_LIMIT) {
+                maxNumStops = MAX_STOP_LIMIT;
             }
         }
         List<Flight> flights = flightDao.getNeighborsById(startAirportId);
