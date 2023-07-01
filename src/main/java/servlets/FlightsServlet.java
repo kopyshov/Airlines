@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Flight;
+import org.sqlite.SQLiteException;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -20,10 +21,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
-import static jakarta.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
-import static jakarta.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+import static jakarta.servlet.http.HttpServletResponse.*;
 
 @WebServlet(name = "FlightServlet", value = "/flights/*")
 public class FlightsServlet extends HttpServlet {
@@ -121,6 +122,8 @@ public class FlightsServlet extends HttpServlet {
                 out.print(answer);
                 out.flush();
             }
+        } catch (SQLiteException e) {
+            new ErrorResponse(SC_CONFLICT, "Flight exists").send(response);
         } catch (SQLException e) {
             new ErrorResponse(SC_INTERNAL_SERVER_ERROR, "Database is not available").send(response);
         }

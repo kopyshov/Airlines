@@ -1,6 +1,7 @@
 package dao;
 
 import model.Airline;
+import org.sqlite.SQLiteException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,8 +24,6 @@ public class AirlineDao implements DAO<Airline, String> {
             statement.setString(1, airline.getCode());
             statement.setString(2, airline.getName());
             statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 

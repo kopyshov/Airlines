@@ -1,6 +1,8 @@
 package dao;
 
+import dto.ErrorResponse;
 import model.Airport;
+import org.sqlite.SQLiteException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static jakarta.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 
 public class AirportDao implements DAO<Airport, String> {
 
@@ -23,8 +27,6 @@ public class AirportDao implements DAO<Airport, String> {
             statement.setString(1, airport.getCode());
             statement.setString(2, airport.getName());
             statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 

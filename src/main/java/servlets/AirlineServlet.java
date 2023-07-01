@@ -9,12 +9,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Airline;
+import org.sqlite.SQLiteException;
 
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Optional;
 
 import static jakarta.servlet.http.HttpServletResponse.*;
@@ -72,6 +74,8 @@ public class AirlineServlet extends HttpServlet {
                 out.print(answer);
                 out.flush();
             }
+        } catch (SQLiteException e) {
+            new ErrorResponse(SC_CONFLICT, "Airline exists").send(response);
         } catch (SQLException ex) {
             new ErrorResponse(SC_INTERNAL_SERVER_ERROR, "Database is not available").send(response);
         }

@@ -3,6 +3,7 @@ package dao;
 import model.Airline;
 import model.Airport;
 import model.Flight;
+import org.sqlite.SQLiteException;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -20,15 +21,13 @@ public class FlightDao {
     }
 
 
-    public void save(Long fromAirportId, Long toAirportId, Long airline, BigDecimal price) {
+    public void save(Long fromAirportId, Long toAirportId, Long airline, BigDecimal price) throws SQLException{
         try(PreparedStatement statement = connection.prepareStatement(FlightSQL.SAVE.QUERY)) {
             statement.setLong(1, fromAirportId);
             statement.setLong(2, toAirportId);
             statement.setLong(3, airline);
             statement.setBigDecimal(4, price);
             statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
