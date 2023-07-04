@@ -6,13 +6,13 @@ import dao.AirportDao;
 import dao.FlightDao;
 import database.DataSourceFactory;
 import dto.ErrorResponse;
-import dto.FlightDto;
+import model.Flight;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Flight;
+import dto.FlightDto;
 import org.sqlite.SQLiteException;
 
 import javax.sql.DataSource;
@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 import static jakarta.servlet.http.HttpServletResponse.*;
@@ -66,10 +65,10 @@ public class FlightsServlet extends HttpServlet {
                 Long fromAirportId = airportDao.getByCode(fromAirportCode).orElseThrow().getId();
                 Long toAirportId = airportDao.getByCode(toAirportCode).orElseThrow().getId();
                 Long airlineId = airlineDao.getByCode(airline).orElseThrow().getId();
-                flightDao.update(new FlightDto(fromAirportId, toAirportId, airlineId, price));
-                Flight flight = flightDao.getById(fromAirportId, toAirportId, airlineId);
+                flightDao.update(new Flight(fromAirportId, toAirportId, airlineId, price));
+                FlightDto flightDto = flightDao.getById(fromAirportId, toAirportId, airlineId);
                 Gson gson = new Gson();
-                String answer = gson.toJson(flight);
+                String answer = gson.toJson(flightDto);
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
                 PrintWriter out = response.getWriter();
@@ -84,9 +83,9 @@ public class FlightsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            List<Flight> flights = flightDao.getAll();
+            List<FlightDto> flightDtos = flightDao.getAll();
             Gson gson = new Gson();
-            String  answer = gson.toJson(flights);
+            String  answer = gson.toJson(flightDtos);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             PrintWriter out = response.getWriter();
@@ -113,10 +112,10 @@ public class FlightsServlet extends HttpServlet {
                 Long fromAirportId = airportDao.getByCode(fromAirportCode).orElseThrow().getId();
                 Long toAirportId = airportDao.getByCode(toAirportCode).orElseThrow().getId();
                 Long airlineId = airlineDao.getByCode(airline).orElseThrow().getId();
-                flightDao.save(new FlightDto(fromAirportId, toAirportId, airlineId, price));
-                Flight flight = flightDao.getById(fromAirportId, toAirportId, airlineId);
+                flightDao.save(new Flight(fromAirportId, toAirportId, airlineId, price));
+                FlightDto flightDto = flightDao.getById(fromAirportId, toAirportId, airlineId);
                 Gson gson = new Gson();
-                String answer = gson.toJson(flight);
+                String answer = gson.toJson(flightDto);
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
                 PrintWriter out = response.getWriter();

@@ -1,9 +1,9 @@
 package dao;
 
-import dto.FlightDto;
+import model.Flight;
 import model.Airline;
 import model.Airport;
-import model.Flight;
+import dto.FlightDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +20,7 @@ public class FlightDao {
     }
 
 
-    public void save(FlightDto flight) throws SQLException{
+    public void save(Flight flight) throws SQLException{
         try(PreparedStatement statement = connection.prepareStatement(FlightSQL.SAVE.QUERY)) {
             statement.setLong(1, flight.fromAirportId());
             statement.setLong(2, flight.toAirportId());
@@ -29,7 +29,7 @@ public class FlightDao {
             statement.executeUpdate();
         }
     }
-    public void update(FlightDto flight) {
+    public void update(Flight flight) {
         try(PreparedStatement statement = connection.prepareStatement(FlightSQL.UPDATE.QUERY)) {
             statement.setLong(2, flight.fromAirportId());
             statement.setLong(3, flight.toAirportId());
@@ -42,7 +42,7 @@ public class FlightDao {
     }
 
 
-    public void delete(FlightDto flight) {
+    public void delete(Flight flight) {
         try(PreparedStatement statement = connection.prepareStatement(FlightSQL.DELETE.QUERY)) {
             statement.setLong(1, flight.fromAirportId());
             statement.setLong(2, flight.toAirportId());
@@ -54,13 +54,13 @@ public class FlightDao {
     }
 
 
-    public List<Flight> getAll() throws SQLException {
-        final List<Flight> result = new ArrayList<>();
+    public List<FlightDto> getAll() throws SQLException {
+        final List<FlightDto> result = new ArrayList<>();
         try(PreparedStatement statement = connection.prepareStatement(FlightSQL.GET_ALL.QUERY)) {
             final ResultSet resultSet = statement.executeQuery();
             while(resultSet.next()) {
-                Flight flight = getFlight(resultSet);
-                result.add(flight);
+                FlightDto flightDto = getFlight(resultSet);
+                result.add(flightDto);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,15 +68,15 @@ public class FlightDao {
         return result;
     }
 
-    public List<Flight> getNeighborsById(Long airportId) {
-        final List<Flight> result = new ArrayList<>();
+    public List<FlightDto> getNeighborsById(Long airportId) {
+        final List<FlightDto> result = new ArrayList<>();
         try(PreparedStatement statement = connection.prepareStatement(FlightSQL.GET_NEIGHBORS_BY_ID.QUERY)) {
             statement.setLong(1, airportId);
             statement.setLong(2, airportId);
             final ResultSet resultSet = statement.executeQuery();
             while(resultSet.next()) {
-                Flight flight = getFlight(resultSet);
-                result.add(flight);
+                FlightDto flightDto = getFlight(resultSet);
+                result.add(flightDto);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -84,35 +84,35 @@ public class FlightDao {
         return result;
     }
 
-    public Flight getById(Long fromAirportId, Long toAirportId, Long airlineId) {
-        Flight flight = null;
+    public FlightDto getById(Long fromAirportId, Long toAirportId, Long airlineId) {
+        FlightDto flightDto = null;
         try (PreparedStatement statement = connection.prepareStatement(FlightSQL.GET_BY_ID.QUERY)) {
             statement.setLong(1, fromAirportId);
             statement.setLong(2, toAirportId);
             statement.setLong(3, airlineId);
             final ResultSet resultSet = statement.executeQuery();
 
-            flight = getFlight(resultSet);
+            flightDto = getFlight(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return flight;
+        return flightDto;
     }
 
-    private Flight getFlight(ResultSet resultSet) throws SQLException {
+    private FlightDto getFlight(ResultSet resultSet) throws SQLException {
         Airport fromAirport = new Airport(resultSet.getString(3), resultSet.getString(4));
         fromAirport.setId(resultSet.getLong(2));
         Airport toAirport = new Airport(resultSet.getString(6), resultSet.getString(7));
         toAirport.setId(resultSet.getLong(5));
         Airline airline = new Airline(resultSet.getString(9), resultSet.getString(10));
         airline.setId(resultSet.getLong(8));
-        Flight flight = new Flight(
+        FlightDto flightDto = new FlightDto(
                 resultSet.getLong(1),
                 fromAirport,
                 toAirport,
                 airline,
                 resultSet.getBigDecimal(11));
-        return flight;
+        return flightDto;
     }
 
 

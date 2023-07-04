@@ -4,7 +4,7 @@ import dao.AirportDao;
 import dao.FlightDao;
 import database.DataSourceFactory;
 import dto.Route;
-import model.Flight;
+import dto.FlightDto;
 
 import javax.sql.DataSource;
 import java.math.BigDecimal;
@@ -22,7 +22,7 @@ public class RouteFinder {
     Long startAirportId;
     Long finishAirportId;
     int maxNumStops;
-    List<LinkedList<Flight>> routes = new ArrayList<>();
+    List<LinkedList<FlightDto>> routes = new ArrayList<>();
     List<Route> readyRoutes = new ArrayList<>();
     private int MAX_STOP_LIMIT = 5;
     private int MAX_STOP_DEFAULT = 2;
@@ -43,16 +43,16 @@ public class RouteFinder {
                 maxNumStops = MAX_STOP_LIMIT;
             }
         }
-        List<Flight> flights = flightDao.getNeighborsById(startAirportId);
-        for(Flight flight : flights) {
-            LinkedList<Flight> anotherRoute = new LinkedList<>();
-            if (flight.getTo_airport().getId().equals(finishAirportId)) {
-                anotherRoute.add(flight);
+        List<FlightDto> flightDtos = flightDao.getNeighborsById(startAirportId);
+        for(FlightDto flightDto : flightDtos) {
+            LinkedList<FlightDto> anotherRoute = new LinkedList<>();
+            if (flightDto.getTo_airport().getId().equals(finishAirportId)) {
+                anotherRoute.add(flightDto);
                 int numStops = 0;
                 Route readyRoute = new Route(calculatePrice(anotherRoute), numStops, anotherRoute);
                 readyRoutes.add(readyRoute);
             } else {
-                anotherRoute.add(flight);
+                anotherRoute.add(flightDto);
                 routes.add(anotherRoute);
             }
         }
@@ -61,24 +61,24 @@ public class RouteFinder {
     }
 
     private void findRoutes() {
-        Iterator<LinkedList<Flight>> routesIterator = routes.listIterator();
-        LinkedList<Flight> fls = routesIterator.next();
+        Iterator<LinkedList<FlightDto>> routesIterator = routes.listIterator();
+        LinkedList<FlightDto> fls = routesIterator.next();
         Long toAirportId = fls.getLast().getTo_airport().getId();
 
-        List<Flight> nextFlights = flightDao.getNeighborsById(toAirportId);
+        List<FlightDto> nextFlightDtos = flightDao.getNeighborsById(toAirportId);
 
-        for (Flight flight : nextFlights) {
-            if (flight.getTo_airport().getId().equals(finishAirportId)) {
-                LinkedList<Flight> anotherRoute = new LinkedList<>(fls);
-                anotherRoute.add(flight);
+        for (FlightDto flightDto : nextFlightDtos) {
+            if (flightDto.getTo_airport().getId().equals(finishAirportId)) {
+                LinkedList<FlightDto> anotherRoute = new LinkedList<>(fls);
+                anotherRoute.add(flightDto);
                 int numStops = anotherRoute.size() - 1;
                 if(numStops < maxNumStops || numStops == maxNumStops) {
                     Route readyRoute = new Route(calculatePrice(anotherRoute), numStops, anotherRoute);
                     readyRoutes.add(readyRoute);
                 }
             } else {
-                LinkedList<Flight> anotherRoute = new LinkedList<>(fls);
-                anotherRoute.add(flight);
+                LinkedList<FlightDto> anotherRoute = new LinkedList<>(fls);
+                anotherRoute.add(flightDto);
                 if(anotherRoute.size() < maxNumStops || anotherRoute.size() == maxNumStops) {
                     routes.add(anotherRoute);
                 }
@@ -90,10 +90,10 @@ public class RouteFinder {
         }
     }
 
-    private BigDecimal calculatePrice(LinkedList<Flight> route) {
+    private BigDecimal calculatePrice(LinkedList<FlightDto> route) {
         BigDecimal totalPrice = new BigDecimal(0);
-        for(Flight flight : route) {
-            totalPrice = totalPrice.add(flight.getPrice());
+        for(FlightDto flightDto : route) {
+            totalPrice = totalPrice.add(flightDto.getPrice());
         }
         return totalPrice;
     }

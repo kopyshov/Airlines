@@ -9,6 +9,7 @@ import java.net.URL;
 
 public class DataSourceFactory {
     private static DataSourceFactory instance = null;
+    private static final String AIR_DB = "Air.db";
     private DataSourceFactory() {
     }
 
@@ -20,7 +21,7 @@ public class DataSourceFactory {
     }
 
     public DataSource getDataSource() throws URISyntaxException {
-        URL resource = DataSourceFactory.class.getClassLoader().getResource("Air.db");
+        URL resource = DataSourceFactory.class.getClassLoader().getResource(AIR_DB);
         String path = null;
         if (resource != null) {
             path = new File(resource.toURI()).getAbsolutePath();

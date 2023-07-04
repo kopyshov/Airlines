@@ -1,7 +1,5 @@
 package dto;
 
-import model.Flight;
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -9,11 +7,11 @@ public class Route {
 
     private BigDecimal totalPrice;
     private int numStops;
-    private List<Flight> route;
+    private List<FlightDto> route;
     public Route() {
     }
 
-    public Route(BigDecimal totalPrice, int numStops, List<Flight> route) {
+    public Route(BigDecimal totalPrice, int numStops, List<FlightDto> route) {
         this.totalPrice = totalPrice;
         this.numStops = numStops;
         this.route = route;
@@ -35,11 +33,11 @@ public class Route {
         this.numStops = numStops;
     }
 
-    public List<Flight> getRoute() {
+    public List<FlightDto> getRoute() {
         return route;
     }
 
-    public void setRoute(List<Flight> route) {
+    public void setRoute(List<FlightDto> route) {
         this.route = route;
     }
 }

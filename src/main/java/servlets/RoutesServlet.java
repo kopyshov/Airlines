@@ -28,7 +28,7 @@ public class RoutesServlet extends HttpServlet {
         String toAirportCode = requestURI.substring(servPath + 5, servPath + 8);
         String maxStops = request.getParameter("max_stops");
 
-        if(!fromAirportCode.equals("") & !toAirportCode.equals("")) {
+        if(!fromAirportCode.equals("") && !toAirportCode.equals("")) {
             try {
                 RouteFinder routeFinder = new RouteFinder();
                 List<Route> route = routeFinder.find(fromAirportCode, toAirportCode, maxStops);

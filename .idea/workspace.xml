@@ -9,10 +9,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23fadec2-79db-4b6e-84d3-2f2f13fa9665" name="Changes" comment="Tiny fixes">
+    <list default="true" id="23fadec2-79db-4b6e-84d3-2f2f13fa9665" name="Changes" comment="Add FlightDto">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/AirportDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/AirportDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/FlightDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/FlightDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/DataSourceFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DataSourceFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dto/FlightDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dto/FlightDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dto/Route.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dto/Route.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Flight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Flight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/RouteFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/RouteFinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlets/AirlineServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/AirlineServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlets/FlightsServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/FlightsServlet.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +83,8 @@
 }</component>
   <component name="RunManager">
     <configuration name="Tomcat 10.1.5" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.5" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="BROWSER_ID" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+      <option name="UPDATING_POLICY" value="redeploy-artifacts" />
       <deployment>
         <artifact name="Airlines:war exploded">
           <settings>
@@ -183,7 +191,11 @@
       <workItem from="1687602090662" duration="28597000" />
       <workItem from="1687711241490" duration="1450000" />
       <workItem from="1688222380909" duration="6298000" />
-      <workItem from="1688234238982" duration="422000" />
+      <workItem from="1688234238982" duration="1734000" />
+      <workItem from="1688301180436" duration="107000" />
+      <workItem from="1688301955751" duration="293000" />
+      <workItem from="1688404147043" duration="921000" />
+      <workItem from="1688488732646" duration="2196000" />
     </task>
     <task id="LOCAL-00001" summary="Add postman">
       <created>1687711817473</created>
@@ -206,7 +218,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688233205355</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add FlightDto">
+      <created>1688240004916</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1688240004916</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -226,6 +245,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add postman" />
     <MESSAGE value="Tiny fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tiny fixes" />
+    <MESSAGE value="Add FlightDto" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add FlightDto" />
   </component>
 </project>
