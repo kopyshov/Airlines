@@ -1,7 +1,6 @@
 package dao;
 
 import model.Airline;
-import org.sqlite.SQLiteException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,12 +27,10 @@ public class AirlineDao implements DAO<Airline, String> {
     }
 
     @Override
-    public void delete(Airline airline) {
+    public void delete(Airline airline) throws SQLException {
         try(PreparedStatement statement = connection.prepareStatement(AirlineSQL.DELETE.QUERY)) {
             statement.setLong(1, airline.getId());
             statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 

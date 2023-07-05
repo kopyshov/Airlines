@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import dao.AirportDao;
 import database.DataSourceFactory;
 import dto.ErrorResponse;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,10 +40,5 @@ public class AirportsServlet extends HttpServlet {
         } catch (SQLException sqlException) {
             new ErrorResponse(SC_INTERNAL_SERVER_ERROR, "Database is not available").send(response);
         }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
-
     }
 }

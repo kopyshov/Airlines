@@ -44,8 +44,4 @@ public class AirlinesServlet extends HttpServlet {
             new ErrorResponse(SC_INTERNAL_SERVER_ERROR, "Database is not available").send(response);
         }
     }
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
-
-    }
 }
