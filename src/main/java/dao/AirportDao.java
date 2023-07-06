@@ -26,15 +26,6 @@ public class AirportDao implements DAO<Airport, String> {
         }
     }
 
-    public void delete(Airport airport) {
-        try(PreparedStatement statement = connection.prepareStatement(AirportSQL.DELETE.QUERY)) {
-            statement.setLong(1, airport.getId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public List<Airport> getAll() throws SQLException {
         final List<Airport> result = new ArrayList<>();
         try(PreparedStatement statement = connection.prepareStatement(AirportSQL.GET_ALL.QUERY)) {

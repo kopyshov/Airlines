@@ -9,16 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23fadec2-79db-4b6e-84d3-2f2f13fa9665" name="Changes" comment="Add DAO-pattern">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/AirlineDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/AirlineDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dto/FlightDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dto/FlightDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dto/Route.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dto/Route.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Flight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Flight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/RouteFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/RouteFinder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servlets/AirlinesServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/AirlinesServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servlets/AirportsServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/AirportsServlet.java" afterDir="false" />
-    </list>
+    <list default="true" id="23fadec2-79db-4b6e-84d3-2f2f13fa9665" name="Changes" comment="Add DAO-pattern" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -195,7 +186,7 @@
       <workItem from="1688301955751" duration="293000" />
       <workItem from="1688404147043" duration="921000" />
       <workItem from="1688488732646" duration="3447000" />
-      <workItem from="1688584234191" duration="1263000" />
+      <workItem from="1688584234191" duration="1921000" />
     </task>
     <task id="LOCAL-00001" summary="Add postman">
       <created>1687711817473</created>
@@ -232,7 +223,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688494656553</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Add DAO-pattern">
+      <created>1688586961196</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1688586961196</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

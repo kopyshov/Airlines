@@ -26,14 +26,6 @@ public class AirlineDao implements DAO<Airline, String> {
         }
     }
 
-    @Override
-    public void delete(Airline airline) throws SQLException {
-        try(PreparedStatement statement = connection.prepareStatement(AirlineSQL.DELETE.QUERY)) {
-            statement.setLong(1, airline.getId());
-            statement.executeUpdate();
-        }
-    }
-
     public List<Airline> getAll() throws SQLException {
         final List<Airline> result = new ArrayList<>();
         try(PreparedStatement statement = connection.prepareStatement(AirlineSQL.GET_ALL.QUERY)) {

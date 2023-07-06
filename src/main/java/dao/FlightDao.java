@@ -40,20 +40,6 @@ public class FlightDao {
             e.printStackTrace();
         }
     }
-
-
-    public void delete(Flight flight) {
-        try(PreparedStatement statement = connection.prepareStatement(FlightSQL.DELETE.QUERY)) {
-            statement.setLong(1, flight.fromAirportId());
-            statement.setLong(2, flight.toAirportId());
-            statement.setLong(3, flight.airline());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     public List<FlightDto> getAll() throws SQLException {
         final List<FlightDto> result = new ArrayList<>();
         try(PreparedStatement statement = connection.prepareStatement(FlightSQL.GET_ALL.QUERY)) {
