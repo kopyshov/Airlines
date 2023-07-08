@@ -1,8 +1,10 @@
 package servlets;
 
 import com.google.gson.Gson;
+import database.OwnConnectionPool;
 import dto.ErrorResponse;
 import dto.Route;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,6 +21,12 @@ import static jakarta.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 
 @WebServlet(name = "RoutesServlet", value = "/routes/*")
 public class RoutesServlet extends HttpServlet {
+    OwnConnectionPool connectionPool;
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        connectionPool = (OwnConnectionPool) getServletContext().getAttribute("connPool");
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -30,7 +38,7 @@ public class RoutesServlet extends HttpServlet {
 
         if(!fromAirportCode.equals("") && !toAirportCode.equals("")) {
             try {
-                RouteFinder routeFinder = new RouteFinder();
+                RouteFinder routeFinder = new RouteFinder(connectionPool);
                 List<Route> route = routeFinder.find(fromAirportCode, toAirportCode, maxStops);
                 Gson gson = new Gson();
                 String  answer = gson.toJson(route);

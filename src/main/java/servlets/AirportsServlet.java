@@ -2,18 +2,17 @@ package servlets;
 
 import com.google.gson.Gson;
 import dao.AirportDao;
-import database.DataSourceFactory;
+import database.OwnConnectionPool;
 import dto.ErrorResponse;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Airport;
 
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -21,10 +20,17 @@ import static jakarta.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 
 @WebServlet(name = "AirportsServlet", value = "/airports")
 public class AirportsServlet extends HttpServlet {
-    private final AirportDao airportDao;
-    public AirportsServlet() throws SQLException, URISyntaxException {
-        DataSource dataSource = DataSourceFactory.getInstance().getDataSource();
-        airportDao = new AirportDao(dataSource.getConnection());
+    private AirportDao airportDao;
+    OwnConnectionPool connectionPool;
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        try {
+            connectionPool = (OwnConnectionPool) getServletContext().getAttribute("connPool");
+            airportDao = new AirportDao(connectionPool.getConnection());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

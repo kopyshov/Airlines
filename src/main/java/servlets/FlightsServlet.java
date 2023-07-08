@@ -4,23 +4,21 @@ import com.google.gson.Gson;
 import dao.AirlineDao;
 import dao.AirportDao;
 import dao.FlightDao;
-import database.DataSourceFactory;
+import database.OwnConnectionPool;
 import dto.ErrorResponse;
-import model.Flight;
+import dto.FlightDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import dto.FlightDto;
+import model.Flight;
 import org.sqlite.SQLiteException;
 
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -28,16 +26,21 @@ import static jakarta.servlet.http.HttpServletResponse.*;
 
 @WebServlet(name = "FlightServlet", value = "/flights/*")
 public class FlightsServlet extends HttpServlet {
-
-    private final FlightDao flightDao;
-    private final AirportDao airportDao;
-    private final AirlineDao airlineDao;
-
-    public FlightsServlet() throws URISyntaxException, SQLException {
-        DataSource dataSource = DataSourceFactory.getInstance().getDataSource();
-        flightDao = new FlightDao(dataSource.getConnection());
-        airportDao = new AirportDao(dataSource.getConnection());
-        airlineDao = new AirlineDao(dataSource.getConnection());
+    private FlightDao flightDao;
+    private AirportDao airportDao;
+    private AirlineDao airlineDao;
+    OwnConnectionPool connectionPool;
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        try {
+            connectionPool = (OwnConnectionPool) getServletContext().getAttribute("connPool");
+            flightDao = new FlightDao(connectionPool.getConnection());
+            airportDao = new AirportDao(connectionPool.getConnection());
+            airlineDao = new AirlineDao(connectionPool.getConnection());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

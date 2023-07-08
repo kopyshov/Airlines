@@ -2,11 +2,10 @@ package services;
 
 import dao.AirportDao;
 import dao.FlightDao;
-import database.DataSourceFactory;
-import dto.Route;
+import database.OwnConnectionPool;
 import dto.FlightDto;
+import dto.Route;
 
-import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
@@ -24,12 +23,12 @@ public class RouteFinder {
     int maxNumStops;
     List<LinkedList<FlightDto>> routes = new ArrayList<>();
     List<Route> readyRoutes = new ArrayList<>();
-    private int MAX_STOP_LIMIT = 5;
-    private int MAX_STOP_DEFAULT = 2;
-    public RouteFinder() throws URISyntaxException, SQLException {
-        DataSource dataSource = DataSourceFactory.getInstance().getDataSource();
-        flightDao = new FlightDao(dataSource.getConnection());
-        airportDao = new AirportDao(dataSource.getConnection());
+    private final int MAX_STOP_LIMIT = 5;
+    private final int MAX_STOP_DEFAULT = 2;
+
+    public RouteFinder(OwnConnectionPool connectionPool) throws URISyntaxException, SQLException {
+        flightDao = new FlightDao(connectionPool.getConnection());
+        airportDao = new AirportDao(connectionPool.getConnection());
     }
 
     public List<Route> find(String startAirportCode, String finishAirportCode, String maxStops) throws SQLException {

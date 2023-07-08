@@ -2,8 +2,9 @@ package servlets;
 
 import com.google.gson.Gson;
 import dao.AirportDao;
-import database.DataSourceFactory;
+import database.OwnConnectionPool;
 import dto.ErrorResponse;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,23 +12,26 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Airport;
 import org.sqlite.SQLiteException;
 
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Optional;
 
 import static jakarta.servlet.http.HttpServletResponse.*;
 
 @WebServlet(name = "AirportServlet", value = "/airports/*")
 public class AirportServlet extends HttpServlet {
-    private final AirportDao airportDao;
-    public AirportServlet() throws URISyntaxException, SQLException {
-        DataSource dataSource = DataSourceFactory.getInstance().getDataSource();
-        airportDao = new AirportDao(dataSource.getConnection());
+    private AirportDao airportDao;
+    OwnConnectionPool connectionPool;
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        try {
+            connectionPool = (OwnConnectionPool) getServletContext().getAttribute("connPool");
+            airportDao = new AirportDao(connectionPool.getConnection());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
