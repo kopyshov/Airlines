@@ -1,6 +1,5 @@
 package servlets;
 
-import dao.AirportDao;
 import database.OwnConnectionPool;
 import dto.ErrorResponse;
 import jakarta.servlet.ServletException;
@@ -11,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Airport;
 import org.sqlite.SQLiteException;
 import services.ResponseService;
+import services.common.AirportsService;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -20,13 +20,13 @@ import static jakarta.servlet.http.HttpServletResponse.*;
 
 @WebServlet(name = "AirportServlet", value = "/airports/*")
 public class AirportServlet extends HttpServlet {
-    private AirportDao airportDao;
+    AirportsService airportsService;
     OwnConnectionPool connectionPool;
     @Override
     public void init() throws ServletException {
         super.init();
         connectionPool = (OwnConnectionPool) getServletContext().getAttribute("connPool");
-        airportDao = new AirportDao(connectionPool.getConnection());
+        airportsService = new AirportsService(connectionPool);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class AirportServlet extends HttpServlet {
             return;
         }
         try {
-            Optional<Airport> airport = airportDao.getByCode(code);
+            Optional<Airport> airport = airportsService.getAirportByCode(code);
             if (airport.isEmpty()){
                 new ErrorResponse(SC_NOT_FOUND, "Airport is not founded").send(response);
                 return;
@@ -60,8 +60,8 @@ public class AirportServlet extends HttpServlet {
                 new ErrorResponse(SC_BAD_REQUEST, "Required form field is incorrect or doesn't exist").send(response);
             } else {
                 Airport insertingAirport = new Airport(code, name);
-                airportDao.save(insertingAirport);
-                Optional<Airport> insertedAirport = airportDao.getByCode(code);
+                airportsService.saveAirport(insertingAirport);
+                Optional<Airport> insertedAirport = airportsService.getAirportByCode(code);
                 ResponseService.send(insertedAirport, response);
             }
         } catch (SQLiteException e) {

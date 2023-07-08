@@ -1,6 +1,5 @@
 package servlets;
 
-import dao.AirlineDao;
 import database.OwnConnectionPool;
 import dto.ErrorResponse;
 import jakarta.servlet.ServletException;
@@ -10,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Airline;
 import services.ResponseService;
+import services.common.AirlinesService;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -19,19 +19,18 @@ import static jakarta.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 
 @WebServlet(name = "AirlinesServlet", value = "/airlines")
 public class AirlinesServlet extends HttpServlet {
-
-    private AirlineDao airlineDao;
     OwnConnectionPool connectionPool;
+    AirlinesService airlinesService;
     @Override
     public void init() throws ServletException {
         super.init();
         connectionPool = (OwnConnectionPool) getServletContext().getAttribute("connPool");
-        airlineDao = new AirlineDao(connectionPool.getConnection());
+        airlinesService = new AirlinesService(connectionPool);
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            List<Airline> airlines = airlineDao.getAll();
+            List<Airline> airlines = airlinesService.getAllAirlines();
             ResponseService.send(airlines, response);
         } catch (SQLException e) {
             new ErrorResponse(SC_INTERNAL_SERVER_ERROR, "Database is not available").send(response);

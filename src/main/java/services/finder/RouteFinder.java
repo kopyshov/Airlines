@@ -1,4 +1,4 @@
-package services;
+package services.finder;
 
 import dao.AirportDao;
 import dao.FlightDao;

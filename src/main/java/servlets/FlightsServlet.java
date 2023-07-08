@@ -1,8 +1,5 @@
 package servlets;
 
-import dao.AirlineDao;
-import dao.AirportDao;
-import dao.FlightDao;
 import database.OwnConnectionPool;
 import dto.ErrorResponse;
 import dto.FlightDto;
@@ -11,9 +8,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Flight;
 import org.sqlite.SQLiteException;
 import services.ResponseService;
+import services.common.AirlinesService;
+import services.common.AirportsService;
+import services.common.FlightsService;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -25,17 +24,17 @@ import static jakarta.servlet.http.HttpServletResponse.*;
 
 @WebServlet(name = "FlightServlet", value = "/flights/*")
 public class FlightsServlet extends HttpServlet {
-    private FlightDao flightDao;
-    private AirportDao airportDao;
-    private AirlineDao airlineDao;
+    FlightsService flightsService;
+    AirlinesService airlinesService;
+    AirportsService airportsService;
     OwnConnectionPool connectionPool;
     @Override
     public void init() throws ServletException {
         super.init();
         connectionPool = (OwnConnectionPool) getServletContext().getAttribute("connPool");
-        flightDao = new FlightDao(connectionPool.getConnection());
-        airportDao = new AirportDao(connectionPool.getConnection());
-        airlineDao = new AirlineDao(connectionPool.getConnection());
+        flightsService = new FlightsService(connectionPool);
+        airlinesService = new AirlinesService(connectionPool);
+        airportsService = new AirportsService(connectionPool);
     }
 
     @Override
@@ -59,15 +58,15 @@ public class FlightsServlet extends HttpServlet {
                 new ErrorResponse(SC_BAD_REQUEST, "Required form field is incorrect or doesn't exist").send(response);
                 return;
             }
-            Long fromAirportId = airportDao.getByCode(fromAirportCode).orElseThrow().getId();
-            Long toAirportId = airportDao.getByCode(toAirportCode).orElseThrow().getId();
-            Long airlineId = airlineDao.getByCode(airline).orElseThrow().getId();
+            Long fromAirportId = airportsService.getAirportByCode(fromAirportCode).orElseThrow().getId();
+            Long toAirportId = airportsService.getAirportByCode(toAirportCode).orElseThrow().getId();
+            Long airlineId = airlinesService.getAirlineByCode(airline).orElseThrow().getId();
             if(fromAirportId == null || toAirportId == null || airlineId == null) {
                 new ErrorResponse(SC_BAD_REQUEST, "Required form field doesn't exist").send(response);
                 return;
             }
-            flightDao.update(new Flight(fromAirportId, toAirportId, airlineId, price));
-            FlightDto flight = flightDao.getById(fromAirportId, toAirportId, airlineId);
+            flightsService.updatePrice(fromAirportId, toAirportId, airlineId, price);
+            FlightDto flight = flightsService.getFlightById(fromAirportId, toAirportId, airlineId);
             ResponseService.send(flight, response);
         } catch (SQLException e) {
             new ErrorResponse(SC_INTERNAL_SERVER_ERROR, "Database is not available").send(response);
@@ -77,7 +76,7 @@ public class FlightsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            List<FlightDto> flights = flightDao.getAll();
+            List<FlightDto> flights = flightsService.getAllFlights();
             ResponseService.send(flights, response);
         } catch (SQLException e) {
             new ErrorResponse(SC_INTERNAL_SERVER_ERROR, "Database is not available").send(response);
@@ -97,11 +96,11 @@ public class FlightsServlet extends HttpServlet {
             if (fromAirportCode.length() != 3 || toAirportCode.length() != 3 || airline.length() != 2) {
                 new ErrorResponse(SC_BAD_REQUEST, "Required form field is incorrect or doesn't exist").send(response);
             } else {
-                Long fromAirportId = airportDao.getByCode(fromAirportCode).orElseThrow().getId();
-                Long toAirportId = airportDao.getByCode(toAirportCode).orElseThrow().getId();
-                Long airlineId = airlineDao.getByCode(airline).orElseThrow().getId();
-                flightDao.save(new Flight(fromAirportId, toAirportId, airlineId, price));
-                FlightDto flightDto = flightDao.getById(fromAirportId, toAirportId, airlineId);
+                Long fromAirportId = airportsService.getAirportByCode(fromAirportCode).orElseThrow().getId();
+                Long toAirportId = airportsService.getAirportByCode(toAirportCode).orElseThrow().getId();
+                Long airlineId = airlinesService.getAirlineByCode(airline).orElseThrow().getId();
+                flightsService.saveFlight(fromAirportId, toAirportId, airlineId, price);
+                FlightDto flightDto = flightsService.getFlightById(fromAirportId, toAirportId, airlineId);
                 ResponseService.send(flightDto, response);
             }
         } catch (SQLiteException e) {

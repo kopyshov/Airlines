@@ -9,17 +9,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23fadec2-79db-4b6e-84d3-2f2f13fa9665" name="Changes" comment="Create PoolConnection">
+    <list default="true" id="23fadec2-79db-4b6e-84d3-2f2f13fa9665" name="Changes" comment="Rewrite services">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/ConnectionPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/ConnectionPool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/OwnConnectionPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/OwnConnectionPool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/StartWebapp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/listeners/StartWebapp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/RouteFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/RouteFinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/IFinderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/finder/IFinderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/RouteFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/finder/RouteFinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/common/AirlinesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/common/AirlinesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/common/AirportsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/common/AirportsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servlets/AirlineServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/AirlineServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servlets/AirlinesServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/AirlinesServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servlets/AirportServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/AirportServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servlets/AirportsServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/AirportsServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servlets/FlightsServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/FlightsServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servlets/RoutesServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/RoutesServlet.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,37 +50,41 @@
       </MavenImportingSettings>
     </option>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="2P3qibew2pAul5mRRI1WVimj3Yg" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Projects/JAVA/ProjectPets/Airlines/src/main/resources/Air.db&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "extract.method.default.visibility": "private",
+    "last_opened_file_path": "C:/Projects/JAVA/ProjectPets/Airlines/src/main/resources/Air.db",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;h2&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "h2"
     ],
-    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect&quot;: [
-      &quot;H2&quot;
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect": [
+      "H2"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
@@ -206,7 +208,7 @@
       <workItem from="1688584234191" duration="1921000" />
       <workItem from="1688661483718" duration="388000" />
       <workItem from="1688661893058" duration="46000" />
-      <workItem from="1688812563400" duration="22151000" />
+      <workItem from="1688812563400" duration="25669000" />
     </task>
     <task id="LOCAL-00001" summary="Add postman">
       <created>1687711817473</created>
@@ -271,7 +273,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688823133610</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Rewrite services">
+      <created>1688846090797</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1688846090797</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -296,6 +305,7 @@
     <MESSAGE value="Remove Delete-functionality" />
     <MESSAGE value="Fix Database" />
     <MESSAGE value="Create PoolConnection" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create PoolConnection" />
+    <MESSAGE value="Rewrite services" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rewrite services" />
   </component>
 </project>

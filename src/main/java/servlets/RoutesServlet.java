@@ -8,9 +8,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import services.IFinderService;
+import services.finder.IFinderService;
 import services.ResponseService;
-import services.RouteFinder;
+import services.finder.RouteFinder;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

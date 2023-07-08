@@ -1,6 +1,5 @@
 package servlets;
 
-import dao.AirlineDao;
 import database.OwnConnectionPool;
 import dto.ErrorResponse;
 import jakarta.servlet.ServletException;
@@ -11,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Airline;
 import org.sqlite.SQLiteException;
 import services.ResponseService;
+import services.common.AirlinesService;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -20,13 +20,13 @@ import static jakarta.servlet.http.HttpServletResponse.*;
 
 @WebServlet(name = "AirlineServlet", value = "/airlines/*")
 public class AirlineServlet extends HttpServlet {
-    private AirlineDao airlineDao;
+    AirlinesService airlinesService;
     OwnConnectionPool connectionPool;
     @Override
     public void init() throws ServletException {
         super.init();
         connectionPool = (OwnConnectionPool) getServletContext().getAttribute("connPool");
-        airlineDao = new AirlineDao(connectionPool.getConnection());
+        airlinesService = new AirlinesService(connectionPool);
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -36,8 +36,9 @@ public class AirlineServlet extends HttpServlet {
             new ErrorResponse(SC_BAD_REQUEST, "Airline code is incorrect or doesn't exist").send(response);
             return;
         }
+
         try {
-            Optional<Airline> airline = airlineDao.getByCode(code);
+            Optional<Airline> airline = airlinesService.getAirlineByCode(code);
             if (airline.isEmpty()){
                 new ErrorResponse(SC_NOT_FOUND, "Airline is not founded").send(response);
                 return;
@@ -58,8 +59,8 @@ public class AirlineServlet extends HttpServlet {
                 new ErrorResponse(SC_BAD_REQUEST, "Required form field is incorrect or doesn't exist").send(response);
             } else {
                 Airline insertingAirline = new Airline(code, name);
-                airlineDao.save(insertingAirline);
-                Airline airline = airlineDao.getByCode(code).orElseThrow();
+                airlinesService.saveAirline(insertingAirline);
+                Airline airline = airlinesService.getAirlineByCode(code).orElseThrow();
                 ResponseService.send(airline, response);
             }
         } catch (SQLiteException e) {
