@@ -8,17 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OwnConnectionPool implements ConnectionPool {
-    private final String url;
-    private final String user;
-    private final String password;
     private final List<Connection> connectionPool;
     private final List<Connection> usedConnections = new ArrayList<>();
     private static final int INITIAL_POOL_SIZE = 10;
 
-    public OwnConnectionPool(String url, String user, String password, List<Connection> connectionPool) {
-        this.url = url;
-        this.user = user;
-        this.password = password;
+    public OwnConnectionPool(List<Connection> connectionPool) {
         this.connectionPool = connectionPool;
     }
 
@@ -27,10 +21,10 @@ public class OwnConnectionPool implements ConnectionPool {
         for(int i = 0; i < INITIAL_POOL_SIZE; i++) {
             pool.add(createConnection(url, user, password));
         }
-        return new OwnConnectionPool(url, user, password, pool);
+        return new OwnConnectionPool(pool);
     }
     @Override
-    public Connection getConnection() throws SQLException {
+    public Connection getConnection() {
         Connection connection = connectionPool.remove(connectionPool.size() - 1);
         usedConnections.add(connection);
         return connection;
@@ -54,20 +48,5 @@ public class OwnConnectionPool implements ConnectionPool {
             connection.close();
         }
         connectionPool.clear();
-    }
-
-    @Override
-    public String getUrl() {
-        return url;
-    }
-
-    @Override
-    public String getUser() {
-        return user;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
     }
 }

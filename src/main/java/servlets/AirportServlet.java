@@ -1,6 +1,5 @@
 package servlets;
 
-import com.google.gson.Gson;
 import dao.AirportDao;
 import database.OwnConnectionPool;
 import dto.ErrorResponse;
@@ -11,9 +10,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Airport;
 import org.sqlite.SQLiteException;
+import services.ResponseService;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -26,18 +25,14 @@ public class AirportServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        try {
-            connectionPool = (OwnConnectionPool) getServletContext().getAttribute("connPool");
-            airportDao = new AirportDao(connectionPool.getConnection());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        connectionPool = (OwnConnectionPool) getServletContext().getAttribute("connPool");
+        airportDao = new AirportDao(connectionPool.getConnection());
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String requestURI = request.getRequestURI();
-        String code = (requestURI).substring(requestURI.lastIndexOf('/') + 1);
+        String code = requestURI.substring(requestURI.lastIndexOf('/') + 1);
         if(code.length() !=3) {
             new ErrorResponse(SC_BAD_REQUEST, "Airport code is incorrect or doesn't exist").send(response);
             return;
@@ -48,13 +43,7 @@ public class AirportServlet extends HttpServlet {
                 new ErrorResponse(SC_NOT_FOUND, "Airport is not founded").send(response);
                 return;
             }
-            Gson gson = new Gson();
-            String answer = gson.toJson(airport);
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            PrintWriter out = response.getWriter();
-            out.print(answer);
-            out.flush();
+            ResponseService.send(airport, response);
         } catch (SQLException sqlException) {
             new ErrorResponse(SC_INTERNAL_SERVER_ERROR, "Database is not available").send(response);
         }
@@ -73,13 +62,7 @@ public class AirportServlet extends HttpServlet {
                 Airport insertingAirport = new Airport(code, name);
                 airportDao.save(insertingAirport);
                 Optional<Airport> insertedAirport = airportDao.getByCode(code);
-                Gson gson = new Gson();
-                String  answer = gson.toJson(insertedAirport);
-                response.setContentType("application/json");
-                response.setCharacterEncoding("UTF-8");
-                PrintWriter out = response.getWriter();
-                out.print(answer);
-                out.flush();
+                ResponseService.send(insertedAirport, response);
             }
         } catch (SQLiteException e) {
             new ErrorResponse(SC_CONFLICT, "Airport exists").send(response);

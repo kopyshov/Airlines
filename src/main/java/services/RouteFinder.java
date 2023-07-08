@@ -14,17 +14,16 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class RouteFinder {
+public class RouteFinder implements IFinderService {
     private final FlightDao flightDao;
     private final AirportDao airportDao;
-
     Long startAirportId;
     Long finishAirportId;
     int maxNumStops;
     List<LinkedList<FlightDto>> routes = new ArrayList<>();
     List<Route> readyRoutes = new ArrayList<>();
-    private final int MAX_STOP_LIMIT = 5;
-    private final int MAX_STOP_DEFAULT = 2;
+    private static final int MAX_STOP_LIMIT = 5;
+    private static final int MAX_STOP_DEFAULT = 2;
 
     public RouteFinder(OwnConnectionPool connectionPool) throws URISyntaxException, SQLException {
         flightDao = new FlightDao(connectionPool.getConnection());
@@ -42,8 +41,8 @@ public class RouteFinder {
                 maxNumStops = MAX_STOP_LIMIT;
             }
         }
-        List<FlightDto> flightDtos = flightDao.getNeighborsById(startAirportId);
-        for(FlightDto flightDto : flightDtos) {
+        List<FlightDto> flights = flightDao.getNeighborsById(startAirportId);
+        for(FlightDto flightDto : flights) {
             LinkedList<FlightDto> anotherRoute = new LinkedList<>();
             if (flightDto.to_airport().getId().equals(finishAirportId)) {
                 anotherRoute.add(flightDto);
@@ -64,9 +63,9 @@ public class RouteFinder {
         LinkedList<FlightDto> fls = routesIterator.next();
         Long toAirportId = fls.getLast().to_airport().getId();
 
-        List<FlightDto> nextFlightDtos = flightDao.getNeighborsById(toAirportId);
+        List<FlightDto> neighborsFlights = flightDao.getNeighborsById(toAirportId);
 
-        for (FlightDto flightDto : nextFlightDtos) {
+        for (FlightDto flightDto : neighborsFlights) {
             if (flightDto.to_airport().getId().equals(finishAirportId)) {
                 LinkedList<FlightDto> anotherRoute = new LinkedList<>(fls);
                 anotherRoute.add(flightDto);
