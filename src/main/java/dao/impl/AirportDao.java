@@ -1,5 +1,6 @@
-package dao;
+package dao.impl;
 
+import dao.IAirportDAO;
 import model.Airport;
 
 import java.sql.Connection;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AirportDao implements DAO<Airport, String> {
+public class AirportDao implements IAirportDAO {
 
     private final Connection connection;
 

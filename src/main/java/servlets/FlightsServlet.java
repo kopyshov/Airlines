@@ -1,6 +1,6 @@
 package servlets;
 
-import database.OwnConnectionPool;
+import database.impl.OwnConnectionPool;
 import dto.ErrorResponse;
 import dto.FlightDto;
 import jakarta.servlet.ServletException;

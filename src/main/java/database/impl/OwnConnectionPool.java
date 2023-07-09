@@ -1,5 +1,6 @@
-package database;
+package database.impl;
 
+import database.ConnectionPool;
 import org.sqlite.SQLiteDataSource;
 
 import java.sql.Connection;

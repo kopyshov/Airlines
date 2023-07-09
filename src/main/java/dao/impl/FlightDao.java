@@ -1,5 +1,6 @@
-package dao;
+package dao.impl;
 
+import dao.IFlightsDAO;
 import model.Flight;
 import model.Airline;
 import model.Airport;
@@ -12,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlightDao {
+public class FlightDao implements IFlightsDAO {
 
     private final Connection connection;
     public FlightDao(final Connection connection) {
@@ -48,13 +49,11 @@ public class FlightDao {
                 FlightDto flightDto = getFlight(resultSet);
                 result.add(flightDto);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return result;
     }
 
-    public List<FlightDto> getNeighborsById(Long airportId) {
+    public List<FlightDto> getNeighborsById(Long airportId) throws SQLException {
         final List<FlightDto> result = new ArrayList<>();
         try(PreparedStatement statement = connection.prepareStatement(FlightSQL.GET_NEIGHBORS_BY_ID.QUERY)) {
             statement.setLong(1, airportId);
@@ -64,13 +63,11 @@ public class FlightDao {
                 FlightDto flightDto = getFlight(resultSet);
                 result.add(flightDto);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return result;
     }
 
-    public FlightDto getById(Long fromAirportId, Long toAirportId, Long airlineId) {
+    public FlightDto getById(Long fromAirportId, Long toAirportId, Long airlineId) throws SQLException {
         FlightDto flightDto = null;
         try (PreparedStatement statement = connection.prepareStatement(FlightSQL.GET_BY_ID.QUERY)) {
             statement.setLong(1, fromAirportId);
@@ -79,8 +76,6 @@ public class FlightDao {
             final ResultSet resultSet = statement.executeQuery();
 
             flightDto = getFlight(resultSet);
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return flightDto;
     }

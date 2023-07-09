@@ -1,7 +1,7 @@
 package services.common;
 
-import dao.FlightDao;
-import database.OwnConnectionPool;
+import dao.impl.FlightDao;
+import database.impl.OwnConnectionPool;
 import dto.FlightDto;
 import model.Flight;
 

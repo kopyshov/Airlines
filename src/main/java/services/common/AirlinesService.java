@@ -1,7 +1,7 @@
 package services.common;
 
-import dao.AirlineDao;
-import database.OwnConnectionPool;
+import dao.impl.AirlineDao;
+import database.impl.OwnConnectionPool;
 import model.Airline;
 
 import java.sql.SQLException;

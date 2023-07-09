@@ -1,8 +1,8 @@
 package services.finder;
 
-import dao.AirportDao;
-import dao.FlightDao;
-import database.OwnConnectionPool;
+import dao.impl.AirportDao;
+import dao.impl.FlightDao;
+import database.impl.OwnConnectionPool;
 import dto.FlightDto;
 import dto.Route;
 
@@ -58,7 +58,7 @@ public class RouteFinder implements IFinderService {
         return readyRoutes;
     }
 
-    private void findRoutes() {
+    private void findRoutes() throws SQLException {
         Iterator<LinkedList<FlightDto>> routesIterator = routes.listIterator();
         LinkedList<FlightDto> fls = routesIterator.next();
         Long toAirportId = fls.getLast().to_airport().getId();

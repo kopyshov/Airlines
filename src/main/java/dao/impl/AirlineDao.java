@@ -1,5 +1,6 @@
-package dao;
+package dao.impl;
 
+import dao.IAirlineDAO;
 import model.Airline;
 
 import java.sql.Connection;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AirlineDao implements DAO<Airline, String> {
+public class AirlineDao implements IAirlineDAO {
 
     private final Connection connection;
 
@@ -37,8 +38,6 @@ public class AirlineDao implements DAO<Airline, String> {
                 airline.setName(resultSet.getString(3));
                 result.add(airline);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return result;
     }
@@ -55,8 +54,6 @@ public class AirlineDao implements DAO<Airline, String> {
             }  else {
                 return Optional.empty();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return Optional.of(result);
     }

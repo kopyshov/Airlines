@@ -1,6 +1,6 @@
 package listeners;
 
-import database.OwnConnectionPool;
+import database.impl.OwnConnectionPool;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
