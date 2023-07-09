@@ -81,7 +81,6 @@ public class FlightsServlet extends HttpServlet {
         } catch (SQLException e) {
             new ErrorResponse(SC_INTERNAL_SERVER_ERROR, "Database is not available").send(response);
         }
-
     }
 
     @Override
