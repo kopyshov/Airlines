@@ -8,7 +8,6 @@ import java.io.PrintWriter;
 
 public class ResponseService {
     private static final Gson gson = new Gson();
-
     public static void send(Object object, HttpServletResponse response) throws IOException {
         String  answer = gson.toJson(object);
         response.setContentType("application/json");
