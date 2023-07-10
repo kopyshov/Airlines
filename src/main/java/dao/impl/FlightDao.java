@@ -49,6 +49,7 @@ public class FlightDao implements IFlightsDAO {
                 FlightDto flightDto = getFlight(resultSet);
                 result.add(flightDto);
             }
+            resultSet.close();
         }
         return result;
     }
@@ -63,12 +64,13 @@ public class FlightDao implements IFlightsDAO {
                 FlightDto flightDto = getFlight(resultSet);
                 result.add(flightDto);
             }
+            resultSet.close();
         }
         return result;
     }
 
     public FlightDto getById(Long fromAirportId, Long toAirportId, Long airlineId) throws SQLException {
-        FlightDto flightDto = null;
+        FlightDto flightDto;
         try (PreparedStatement statement = connection.prepareStatement(FlightSQL.GET_BY_ID.QUERY)) {
             statement.setLong(1, fromAirportId);
             statement.setLong(2, toAirportId);

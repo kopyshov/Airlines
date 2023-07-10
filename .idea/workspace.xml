@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23fadec2-79db-4b6e-84d3-2f2f13fa9665" name="Changes" comment="Update README.md">
+    <list default="true" id="23fadec2-79db-4b6e-84d3-2f2f13fa9665" name="Changes" comment="Delete spaces...">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -202,6 +202,7 @@
       <workItem from="1688661893058" duration="46000" />
       <workItem from="1688812563400" duration="27440000" />
       <workItem from="1688891518300" duration="3139000" />
+      <workItem from="1688918323515" duration="2434000" />
     </task>
     <task id="LOCAL-00001" summary="Add postman">
       <created>1687711817473</created>
@@ -294,7 +295,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688893400947</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Delete spaces...">
+      <created>1688918626915</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1688918626915</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -323,6 +331,7 @@
     <MESSAGE value="Add common services" />
     <MESSAGE value="Add interfaces in DAO" />
     <MESSAGE value="Update README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update README.md" />
+    <MESSAGE value="Delete spaces..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Delete spaces..." />
   </component>
 </project>

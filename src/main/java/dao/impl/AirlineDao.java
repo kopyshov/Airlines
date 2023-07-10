@@ -38,6 +38,7 @@ public class AirlineDao implements IAirlineDAO {
                 airline.setName(resultSet.getString(3));
                 result.add(airline);
             }
+            resultSet.close();
         }
         return result;
     }
@@ -51,7 +52,9 @@ public class AirlineDao implements IAirlineDAO {
                 result.setId(resultSet.getLong(1));
                 result.setCode(resultSet.getString(2));
                 result.setName(resultSet.getString(3));
-            }  else {
+                resultSet.close();
+            } else {
+                resultSet.close();
                 return Optional.empty();
             }
         }

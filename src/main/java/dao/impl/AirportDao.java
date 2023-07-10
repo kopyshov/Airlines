@@ -38,6 +38,7 @@ public class AirportDao implements IAirportDAO {
                 airport.setName(resultSet.getString(3));
                 result.add(airport);
             }
+            resultSet.close();
         }
         return result;
     }
@@ -52,9 +53,12 @@ public class AirportDao implements IAirportDAO {
                 result.setId(resultSet.getLong(1));
                 result.setCode(resultSet.getString(2));
                 result.setName(resultSet.getString(3));
+                resultSet.close();
             }  else {
+                resultSet.close();
                 return Optional.empty();
             }
+
         }
         return Optional.of(result);
     }
